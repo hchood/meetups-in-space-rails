@@ -43,7 +43,21 @@ feature "adds a meetup", %q{
     expect(page).to have_content "Description can't be blank"
   end
 
-  scenario "meetup name already in use"
+  scenario "meetup name already in use" do
+    existing_meetup = FactoryGirl.create(:meetup)
+
+    visit new_meetup_path
+    fill_in "Name", with: existing_meetup.name
+    fill_in "Location", with: existing_meetup.location
+    fill_in "Description", with: existing_meetup.description
+    click_on "Submit"
+
+    expect(page).to have_content "ERRAH"
+    expect(page).to have_content "Name has already been taken"
+
+    name = find_field("Name").value
+    expect(name).to eq existing_meetup.name
+  end
 
   scenario "unauthenticated user cannot add meetup"
 end
