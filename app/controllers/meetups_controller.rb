@@ -4,6 +4,7 @@ class MeetupsController < ApplicationController
 
   def show
     @meetup = Meetup.find(params[:id])
+    @comment = @meetup.comments.build # Comment.new(meetup: @meetup)
   end
 
   def new
