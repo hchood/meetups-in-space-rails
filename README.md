@@ -63,29 +63,6 @@ FactoryGirl.define do
 end
 ```
 
-**Protip: Put your factories in a single `spec/support/factories.rb` file. Or not.**
-
-You can stick with the default location for factories (`spec/factories/<MODELNAME_PLURAL>.rb`) if you want.
-I prefer to put my factories in a single file in the `spec/support` directory (which you may need to create manually).  I think it's a pain to have to look at a whole bunch of files to see my factories.
-
-```ruby
-# spec/support/factories.rb
-FactoryGirl.define do
-  factory :user do
-    # ...
-  end
-
-  factory :meetup do
-    # ...
-  end
-
-  factory :rsvp do
-    # ...
-  end  
-
-  # etc.
-end
-```
 #### Unique fields
 
 For unique fields, you need to use a `sequence`.  All of our FactoryGirl-created objects can have the same name, but they can't have the same email.  A sequence allows you to insert a number into your `email` attribute (in this example) to make it unique.
@@ -122,6 +99,12 @@ end
 ```
 
 Now if I call `FactoryGirl.create(:meetup)`, it'll create two objects:  a `Meetup` object and a `User` object.
+
+
+```ruby
+meetup = FactoryGirl.create(:meetup) # creates a meetup and a user
+user = meetup.creator # returns the user object that FG created
+```
 
 Actually, FG makes this even simpler and we can just do this:
 
@@ -207,4 +190,35 @@ There's a whole bunch of crazy stuff you can do with FactoryGirl.  Read the docs
 * [Getting Started with FactoryGirl](https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md)
 * [factory_girl_rails](https://github.com/thoughtbot/factory_girl_rails)
 
-I'd recommend sticking with these basics, though, rather than going nuts with things like traits, etc. 
+I'd recommend sticking with these basics, though, rather than going nuts with things like traits, etc.
+
+**Protip: Put your factories in a single `spec/support/factories.rb` file. Or not.**
+
+You can stick with the default location for factories (`spec/factories/<MODELNAME_PLURAL>.rb`) if you want.
+I prefer to put my factories in a single file in the `spec/support` directory (which you may need to create manually).  I think it's a pain to have to look at a whole bunch of files to see my factories.
+
+```ruby
+# spec/support/factories.rb
+FactoryGirl.define do
+  factory :user do
+    # ...
+  end
+
+  factory :meetup do
+    # ...
+  end
+
+  factory :rsvp do
+    # ...
+  end  
+
+  # etc.
+end
+```
+If you do that, though, you need to tell RSpec to load your factories by uncommenting the following line in your `rails_helper.rb` file:
+
+```ruby
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+```
+
+[**Aside:** Now you can put whatever helpers you want in the `spec/support` directory, in addition to factories.]
