@@ -8,6 +8,18 @@
 </head>
 <body>
 
+<ul id="nav">
+  <li>
+    <%= link_to "Add a Meetup", new_meetup_path %>
+  </li>
+</ul>
+
+<% if flash.any? %>
+  <div>
+    <%= notice %>
+  </div>
+<% end %>
+
 <%= yield %>
 
 </body>
