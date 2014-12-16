@@ -7,12 +7,12 @@ feature "adds a meetup", %q{
 
   Acceptance Criteria:
 
-  - [ ] I must supply a name.
-  - [ ] I must supply a location.
-  - [ ] I must supply a description.
-  - [ ] Name must be unique or I receive an error message.
-  - [ ] I should be brought to the details page for the meetup after I create it.
-  - [ ] I should see a message that lets me know that I have created a meetup successfully.
+  - [X] I must supply a name.
+  - [X] I must supply a location.
+  - [X] I must supply a description.
+  - [X] Name must be unique or I receive an error message.
+  - [X] I should be brought to the details page for the meetup after I create it.
+  - [X] I should see a message that lets me know that I have created a meetup successfully.
   - [ ] I must be signed in.
 } do
 
