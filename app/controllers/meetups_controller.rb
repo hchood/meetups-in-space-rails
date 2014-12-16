@@ -15,7 +15,7 @@ class MeetupsController < ApplicationController
     if @meetup.save
       redirect_to meetup_path(@meetup), notice: "Success! Your meetup has been created."
     else
-      flash.now[:notice] = "NOOOOOOO"
+      flash.now[:notice] = "ERRAH"
       render :new
     end
   end

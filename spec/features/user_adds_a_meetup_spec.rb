@@ -10,6 +10,7 @@ feature "adds a meetup", %q{
   - [ ] I must supply a name.
   - [ ] I must supply a location.
   - [ ] I must supply a description.
+  - [ ] Name must be unique or I receive an error message.
   - [ ] I should be brought to the details page for the meetup after I create it.
   - [ ] I should see a message that lets me know that I have created a meetup successfully.
   - [ ] I must be signed in.
@@ -32,7 +33,17 @@ feature "adds a meetup", %q{
     expect(page).to have_content meetup.description
   end
 
-  scenario "without required attributes"
+  scenario "without required attributes" do
+    visit new_meetup_path
+    click_on "Submit"
+
+    expect(page).to have_content "ERRAH"
+    expect(page).to have_content "Name can't be blank"
+    expect(page).to have_content "Location can't be blank"
+    expect(page).to have_content "Description can't be blank"
+  end
+
+  scenario "meetup name already in use"
 
   scenario "unauthenticated user cannot add meetup"
 end

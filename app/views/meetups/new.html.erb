@@ -1,5 +1,14 @@
 <h3>New Meetup</h3>
 
+<% if @meetup.errors.any? %>
+  <p><%= "#{@meetup.errors.count} error(s) prevented your record from being saved:" %></p>
+  <ul>
+    <% @meetup.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @meetup do |f| %>
   <div>
     <%= f.label :name %>
