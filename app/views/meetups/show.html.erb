@@ -1,0 +1,36 @@
+<h3><%= @meetup.name %></h3>
+
+<div>
+  Location: <%= @meetup.location %>
+</div>
+
+<div>
+  Description: <%= @meetup.description %>
+</div>
+
+<ul>
+  <% @meetup.comments.each do |comment| %>
+    <li><%= "Title: #{comment.title} | Body: #{comment.body}" %></li>
+  <% end %>
+</ul>
+
+<%= form_for [@meetup, @comment] do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div id="name">
+
+  </div>
+
+  <div>
+    <%= f.submit "Post Comment" %>
+  </div>
+
+<% end %>
