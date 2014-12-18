@@ -9,14 +9,21 @@
 <body>
 
 <ul id="nav">
-  <li>
-    <%= link_to "Add a Meetup", new_meetup_path %>
-  </li>
+    <% if user_signed_in? %>
+      <li><%= button_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to "Sign Up", new_user_registration_path %></li>
+      <li><%= link_to "Sign In", new_user_session_path %></li>
+    <% end %>
+    <li><%= link_to "Add a Meetup", new_meetup_path %></li>
 </ul>
 
 <% if flash.any? %>
   <div>
     <%= notice %>
+  </div>
+  <div>
+    <%= alert %>
   </div>
 <% end %>
 
